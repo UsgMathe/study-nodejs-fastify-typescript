@@ -1,7 +1,7 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2024-08-02T02:03:54.146Z",
+  "__export_date": "2024-08-02T02:54:19.721Z",
   "__export_source": "insomnia.desktop.app:v9.3.2",
   "resources": [
     {
@@ -43,12 +43,48 @@
     {
       "_id": "wrk_14f78c46585a44bb9e6ef1b93c961130",
       "parentId": null,
-      "modified": 1722556190886,
+      "modified": 1722565464306,
       "created": 1722556190886,
-      "name": "study-nodejs-fastify-general",
+      "name": "study-nodejs-fastify-typescript",
       "description": "",
       "scope": "collection",
       "_type": "workspace"
+    },
+    {
+      "_id": "req_4b672f108c4b44e59a8919d73edd9b37",
+      "parentId": "wrk_14f78c46585a44bb9e6ef1b93c961130",
+      "modified": 1722567237838,
+      "created": 1722565476245,
+      "url": "{{ _.BASE_URL }}/calculate-bmi",
+      "name": "Calculate BMI",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"height\": 180,\n\t\"weight\": 63\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "User-Agent",
+          "value": "insomnia/9.3.2"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1722559200600,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
     },
     {
       "_id": "req_03b2630da26244b18b8fd8523b46d26c",

@@ -7,11 +7,14 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod';
+import { calculateBmi } from './routes/calculate-bmi';
 
 const server = fastify().withTypeProvider<ZodTypeProvider>();
 
 server.setValidatorCompiler(validatorCompiler);
 server.setSerializerCompiler(serializerCompiler);
+
+server.register(calculateBmi);
 
 server.get('/', (request, reply) => {
   reply.send('🔥 Hello World! :)');
