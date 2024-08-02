@@ -20,8 +20,8 @@ function classifybmi(bmi: number): string {
   }
 }
 
-export async function calculateBmi(app: FastifyInstanceWithValidator) {
-  app.post(
+export async function calculateBmi(server: FastifyInstanceWithValidator) {
+  server.post(
     '/calculate-bmi',
     {
       schema: {
