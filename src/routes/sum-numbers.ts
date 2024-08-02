@@ -9,7 +9,8 @@ export async function sumNumbers(server: FastifyInstanceWithValidator) {
     },
     (request, reply) => {
       const { numbers } = request.body;
-      reply.send(numbers.reduce((prev, acc) => prev + acc, 0));
+      const sum = numbers.reduce((prev, acc) => prev + acc, 0);
+      reply.send({ sum });
     }
   );
 }
