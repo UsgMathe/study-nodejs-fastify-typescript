@@ -206,8 +206,87 @@ server.listen({ host: env.HOST, port: env.PORT }, (err, address) => {
 });
 ```
 
+## Setting Up Zod Validator with Fastify
+
+### 1. Install `fastify-type-provider-zod` Package
+
+Install the `fastify-type-provider-zod` package to integrate Zod with Fastify:
+
+```bash
+npm install fastify-type-provider-zod
+```
+
+### 2. Configure Fastify with Zod
+
+Set up Fastify to use Zod as the validator and serializer compiler. Create or update `src/server.ts` with the following code:
+
+```ts
+import fastify from 'fastify';
+import { z } from 'zod';
+import { env } from './env';
+import {
+  ZodTypeProvider,
+  serializerCompiler,
+  validatorCompiler,
+} from 'fastify-type-provider-zod';
+
+// Configure Fastify with ZodTypeProvider
+const server = fastify().withTypeProvider<ZodTypeProvider>();
+
+// Set validator and serializer compiler
+server.setValidatorCompiler(validatorCompiler);
+server.setSerializerCompiler(serializerCompiler);
+
+server.get('/', (request, reply) => {
+  reply.send('🔥 Hello World! :)');
+});
+
+// Example of a route with Zod validation schema
+server.post(
+  '/sum-numbers',
+  {
+    // Validate if the body is an array of numbers
+    schema: { body: z.object({ numbers: z.array(z.number()) }) },
+  },
+  (request, reply) => {
+    const { numbers } = request.body;
+    reply.send(numbers.reduce((prev, acc) => prev + acc, 0));
+  }
+);
+
+// Start the server
+server.listen({ host: env.HOST, port: env.PORT }, (err, address) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+  console.log(`🔥 Server is running on ${address}`);
+});
+```
+
+### 3. Run the Server
+
+Start the server using the development script:
+
+```bash
+npm run dev
+```
+
+### 4. Testing the Endpoint
+
+Test the `/sum-numbers` endpoint with a POST request using a tool like Postman or cURL. The body of the request should be a JSON object with an array of numbers, like this:
+
+```json
+{
+  "numbers": [1, 2, 3, 4, 5]
+}
+```
+
+If everything is set up correctly, the server should respond with the sum of the numbers.
+
 ## Additional Resources
 
 - [Fastify Documentation](https://www.fastify.io/docs/latest/)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 - [Zod Documentation](https://zod.dev/)
+- [fastify-type-provider-zod Documentation](https://github.com/turkerdev/fastify-type-provider-zod)
