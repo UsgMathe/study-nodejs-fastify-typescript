@@ -1,5 +1,4 @@
 import fastify from 'fastify';
-import { z } from 'zod';
 import { env } from './env';
 
 import {
@@ -8,6 +7,7 @@ import {
   validatorCompiler,
 } from 'fastify-type-provider-zod';
 import { calculateBmi } from './routes/calculate-bmi';
+import { sumNumbers } from './routes/sum-numbers';
 
 const server = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -15,21 +15,11 @@ server.setValidatorCompiler(validatorCompiler);
 server.setSerializerCompiler(serializerCompiler);
 
 server.register(calculateBmi);
+server.register(sumNumbers);
 
 server.get('/', (request, reply) => {
   reply.send('🔥 Hello World! :)');
 });
-
-server.post(
-  '/sum-numbers',
-  {
-    schema: { body: z.object({ numbers: z.array(z.number()) }) },
-  },
-  (request, reply) => {
-    const { numbers } = request.body;
-    reply.send(numbers.reduce((prev, acc) => prev + acc, 0));
-  }
-);
 
 server.listen({ host: env.HOST, port: env.PORT }, (err, address) => {
   if (err) {
