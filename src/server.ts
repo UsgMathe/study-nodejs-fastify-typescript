@@ -8,7 +8,7 @@ import { env } from './env';
 import { errorHandler } from './error-handler';
 
 import { calculateAverage } from './routes/calculate/calculate-average';
-import { calculateBmi } from './routes/calculate/calculate-bmi';
+import { calculateBmiRoute } from './routes/calculate/calculate-bmi';
 import { formatBrazilianCellphone } from './routes/format/format-brazilian-cellphone ';
 import { sumNumbers } from './routes/sum-numbers';
 
@@ -20,7 +20,7 @@ server.setValidatorCompiler(validatorCompiler);
 server.setSerializerCompiler(serializerCompiler);
 
 server.register(sumNumbers);
-server.register(calculateBmi);
+server.register(calculateBmiRoute);
 server.register(calculateAverage);
 server.register(formatBrazilianCellphone);
 
