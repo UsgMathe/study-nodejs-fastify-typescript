@@ -14,7 +14,7 @@ Initialize your project and create a `package.json` file:
 npm init -y
 ```
 
-### 2. Install TypeScript and Node.js types
+### 2. Install TypeScript and Node.js Types
 
 Install TypeScript and the necessary Node.js type definitions:
 
@@ -22,7 +22,7 @@ Install TypeScript and the necessary Node.js type definitions:
 npm install typescript @types/node -D
 ```
 
-### 3. Initialize TypeScript configuration
+### 3. Initialize TypeScript Configuration
 
 Create the `tsconfig.json` file with default TypeScript settings:
 
@@ -50,7 +50,7 @@ Update your `tsconfig.json` to use the `@tsconfig/node20` base configuration:
 }
 ```
 
-### 5. Install `tsx` package
+### 5. Install `tsx` Package
 
 The `tsx` package simplifies running TypeScript files directly:
 
@@ -58,7 +58,7 @@ The `tsx` package simplifies running TypeScript files directly:
 npm install tsx -D
 ```
 
-### 6. Add development script to `package.json`
+### 6. Add Development Script to `package.json`
 
 Update the `scripts` section of your `package.json` to include a development script:
 
@@ -70,7 +70,7 @@ Update the `scripts` section of your `package.json` to include a development scr
 }
 ```
 
-### 7. Create `.env` file
+### 7. Create `.env` File
 
 Create a `.env` file at the root of your project:
 
@@ -139,16 +139,14 @@ Install the Zod package for schema validation:
 npm install zod
 ```
 
-### 2. Configure `.env` on Root of Your Project
+### 2. Configure `.env` File
 
-Create a `.env` file at the root of your project:
+Add environment variables to your `.env` file:
 
 ```
 project
 └── .env
 ```
-
-Add the following environment variables:
 
 ```env
 HOST = 127.0.0.1
@@ -186,8 +184,6 @@ Import and use the validated environment variables in your server configuration:
 
 ```ts
 import fastify from 'fastify';
-
-// import env
 import { env } from './env';
 
 const server = fastify();
@@ -196,7 +192,7 @@ server.get('/', (request, reply) => {
   reply.send('Hello World! 🔥');
 });
 
-// use env.HOST and env.PORT
+// Use env.HOST and env.PORT
 server.listen({ host: env.HOST, port: env.PORT }, (err, address) => {
   if (err) {
     console.error(err);
@@ -218,7 +214,7 @@ npm install fastify-type-provider-zod
 
 ### 2. Configure Fastify with Zod
 
-Set up Fastify to use Zod as the validator and serializer compiler. Create or update `src/server.ts` with the following code:
+Set up Fastify to use Zod as the validator and serializer compiler. Create or update `src/server.ts`:
 
 ```ts
 import fastify from 'fastify';
@@ -241,11 +237,10 @@ server.get('/', (request, reply) => {
   reply.send('🔥 Hello World! :)');
 });
 
-// Example of a route with Zod validation schema
+// Example route with Zod validation schema
 server.post(
   '/sum-numbers',
   {
-    // Validate if the body is an array of numbers
     schema: { body: z.object({ numbers: z.array(z.number()) }) },
   },
   (request, reply) => {
@@ -283,6 +278,69 @@ Test the `/sum-numbers` endpoint with a POST request using a tool like Postman o
 ```
 
 If everything is set up correctly, the server should respond with the sum of the numbers.
+
+## Configure Error Handler for Zod Validation Errors
+
+### 1. Create `error-handler.ts` in the `src` Folder
+
+Create a new file named `error-handler.ts` in the `src` folder to handle Zod validation errors:
+
+```
+project
+└── src
+    └── error-handler.ts
+```
+
+### 2. Configure `error-handler.ts`
+
+Add the following code to `error-handler.ts` to create a custom error handler:
+
+```ts
+import { FastifyInstance } from 'fastify';
+import { ZodError } from 'zod';
+
+type FastifyErrorHandler = FastifyInstance['errorHandler'];
+
+export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
+  if (error instanceof ZodError) {
+    reply.status(400).send({
+      statusCode: 400,
+      error: 'Bad Request',
+      issues: error.flatten().fieldErrors,
+    });
+    return;
+  }
+
+  reply.send(error);
+};
+```
+
+### 3. Import and Use the Error Handler in `server.ts`
+
+Import and set the custom error handler in your `server.ts` file:
+
+```ts
+import fastify from 'fastify';
+import { env } from './env';
+import { errorHandler } from './error-handler';
+
+const server = fastify();
+
+// Set the custom error handler
+server.setErrorHandler(errorHandler);
+
+server.get('/', (request, reply) => {
+  reply.send('🔥 Hello World! :)');
+});
+
+server.listen({ host: env.HOST, port: env.PORT }, (err, address) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+  console.log(`🔥 Server is running on ${address}`);
+});
+```
 
 ## Additional Resources
 
