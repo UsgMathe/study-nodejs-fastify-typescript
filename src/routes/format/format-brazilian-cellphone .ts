@@ -1,6 +1,6 @@
-import z from 'zod';
-import { FastifyInstanceWithValidator } from '../../types';
 import { cellphoneRegex } from '../../../utils/regex';
+import { CellPhoneSchema } from '../../schemas/cellphone-schema';
+import { FastifyInstanceWithValidator } from '../../types';
 
 export async function formatBrazilianCellphone(
   server: FastifyInstanceWithValidator
@@ -9,15 +9,7 @@ export async function formatBrazilianCellphone(
     '/format/brazilian-cellphone',
     {
       schema: {
-        body: z.object({
-          cellphone: z
-            .string()
-            .transform(value => value.replace(/\D/g, ''))
-            .refine(
-              value => value.length == 11,
-              'Expected cellphone with 11 numbers.'
-            ),
-        }),
+        body: CellPhoneSchema,
       },
     },
     (request, reply) => {
