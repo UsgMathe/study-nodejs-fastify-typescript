@@ -6,11 +6,14 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod';
+import { errorHandler } from './errorHandler';
+import { calculateAverage } from './routes/calculate/calculate-average';
 import { calculateBmi } from './routes/calculate/calculate-bmi';
 import { sumNumbers } from './routes/sum-numbers';
-import { calculateAverage } from './routes/calculate/calculate-average';
 
 const server = fastify().withTypeProvider<ZodTypeProvider>();
+
+server.setErrorHandler(errorHandler);
 
 server.setValidatorCompiler(validatorCompiler);
 server.setSerializerCompiler(serializerCompiler);
@@ -19,7 +22,7 @@ server.register(sumNumbers);
 server.register(calculateBmi);
 server.register(calculateAverage);
 
-server.get('/', (request, reply) => {
+server.get('/', (_, reply) => {
   reply.send('🔥 Hello World! :)');
 });
 
