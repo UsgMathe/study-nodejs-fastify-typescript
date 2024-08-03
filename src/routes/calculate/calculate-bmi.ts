@@ -1,5 +1,5 @@
 import z from 'zod';
-import { FastifyInstanceWithValidator } from '../types';
+import { FastifyInstanceWithValidator } from '../../types';
 
 const bmiCategories = [
   { max: 17, result: 'Severely underweight' },
@@ -22,7 +22,7 @@ function classifybmi(bmi: number): string {
 
 export async function calculateBmi(server: FastifyInstanceWithValidator) {
   server.post(
-    '/calculate-bmi',
+    '/calculate/bmi',
     {
       schema: {
         body: z.object({
