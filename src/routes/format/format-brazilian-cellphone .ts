@@ -1,12 +1,12 @@
-import { cellphoneRegex } from '../../../utils/regex';
-import { CellPhoneSchema } from '../../schemas/cellphone-schema';
-import { FastifyInstanceWithValidator } from '../../types';
+import { cellphoneRegex } from "../../../utils/regex";
+import { CellPhoneSchema } from "../../schemas/cellphone-schema";
+import { FastifyInstanceWithValidator } from "../../types";
 
 export async function formatBrazilianCellphone(
   server: FastifyInstanceWithValidator
 ) {
   server.post(
-    '/format/brazilian-cellphone',
+    "/format/brazilian-cellphone",
     {
       schema: {
         body: CellPhoneSchema,
@@ -15,10 +15,9 @@ export async function formatBrazilianCellphone(
     (request, reply) => {
       const { cellphone } = request.body;
 
-      const formattedCellphone = cellphone.replace(
-        cellphoneRegex,
-        '+55 ($1) $2-$3'
-      );
+      const formattedCellphone = cellphone
+        .toString()
+        .replace(cellphoneRegex, "+55 ($1) $2-$3");
 
       reply.send({ formattedCellphone });
     }
