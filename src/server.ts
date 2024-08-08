@@ -10,6 +10,7 @@ import { errorHandler } from './error-handler';
 import { calculateAverage } from './routes/calculate/calculate-average';
 import { calculateBmiRoute } from './routes/calculate/calculate-bmi';
 import { formatBrazilianCellphone } from './routes/format/format-brazilian-cellphone ';
+import { getProducts } from './routes/get-products/get-product';
 import { sumNumbers } from './routes/sum-numbers';
 
 const server = fastify().withTypeProvider<ZodTypeProvider>();
@@ -23,6 +24,7 @@ server.register(sumNumbers);
 server.register(calculateBmiRoute);
 server.register(calculateAverage);
 server.register(formatBrazilianCellphone);
+server.register(getProducts);
 
 server.get('/', (_, reply) => {
   reply.send('🔥 Hello World! :)');

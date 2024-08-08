@@ -1,0 +1,136 @@
+import { Product } from "../types";
+
+export const products: Product[] = [
+  {
+    id: 1,
+    name: "Banana",
+    category: "Fruit",
+    price: 4.5,
+  },
+  {
+    id: 2,
+    name: "Corote",
+    category: "Beverage",
+    price: 5.65,
+  },
+  {
+    id: 3,
+    name: "Cup Noodles",
+    category: "Instant Noodles",
+    price: 5.65,
+  },
+  {
+    id: 4,
+    name: "Apple",
+    category: "Fruit",
+    price: 3.0,
+  },
+  {
+    id: 5,
+    name: "Orange Juice",
+    category: "Beverage",
+    price: 6.5,
+  },
+  {
+    id: 6,
+    name: "Milk",
+    category: "Dairy",
+    price: 4.0,
+  },
+  {
+    id: 7,
+    name: "Cheddar Cheese",
+    category: "Dairy",
+    price: 7.0,
+  },
+  {
+    id: 8,
+    name: "Chicken Breast",
+    category: "Meat",
+    price: 12.0,
+  },
+  {
+    id: 9,
+    name: "Ground Beef",
+    category: "Meat",
+    price: 10.0,
+  },
+  {
+    id: 10,
+    name: "Whole Wheat Bread",
+    category: "Bakery",
+    price: 3.5,
+  },
+  {
+    id: 11,
+    name: "Croissant",
+    category: "Bakery",
+    price: 2.5,
+  },
+  {
+    id: 12,
+    name: "Olive Oil",
+    category: "Cooking Essentials",
+    price: 8.0,
+  },
+  {
+    id: 13,
+    name: "Salt",
+    category: "Cooking Essentials",
+    price: 1.0,
+  },
+  {
+    id: 14,
+    name: "Pasta",
+    category: "Pantry",
+    price: 2.0,
+  },
+  {
+    id: 15,
+    name: "Canned Beans",
+    category: "Pantry",
+    price: 1.8,
+  },
+  {
+    id: 16,
+    name: "Tomato Sauce",
+    category: "Pantry",
+    price: 2.5,
+  },
+  {
+    id: 17,
+    name: "Yogurt",
+    category: "Dairy",
+    price: 1.2,
+  },
+  {
+    id: 18,
+    name: "Frozen Pizza",
+    category: "Frozen Foods",
+    price: 7.0,
+  },
+  {
+    id: 19,
+    name: "Ice Cream",
+    category: "Frozen Foods",
+    price: 5.0,
+  },
+  {
+    id: 20,
+    name: "Apple Cider Vinegar",
+    category: "Cooking Essentials",
+    price: 3.5,
+  },
+  {
+    id: 21,
+    name: "Granola Bars",
+    category: "Snacks",
+    price: 4.0,
+  },
+  {
+    id: 22,
+    name: "Potato Chips",
+    category: "Snacks",
+    price: 2.5,
+  },
+];
